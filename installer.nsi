@@ -1,4 +1,7 @@
 Outfile "PasswordGeneratorInstaller.exe"
+Caption "Password Generator Installer"
+BrandingText "Developed by Sathsara Karunarathne"
+XPStyle on
 SetCompressor /SOLID lzma  ; Compression settings
 RequestExecutionLevel admin  ; Request administrative privileges
 
