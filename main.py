@@ -1,9 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
-
-import tkinter
-from tkinter import messagebox
-
+from tkinter import ttk, messagebox  # Importing messagebox separately for Python versions where it's required
 import secrets
 import string
 
@@ -39,6 +35,7 @@ class PasswordGeneratorApp:
         self.customized_frame = CustomizedPasswordFrame(master)
 
     def show_mode_frame(self, event=None):
+        # Function to switch between generative and customized password frames based on user selection
         mode = self.mode.get()
         if mode == "Generative":
             self.generative_frame.show()
@@ -52,11 +49,11 @@ class GenerativePasswordFrame:
     def __init__(self, master):
         self.master = master
 
+        # Variables to track user preferences
         self.include_lowercase = tk.BooleanVar()
         self.include_uppercase = tk.BooleanVar()
         self.include_digits = tk.BooleanVar()
         self.include_symbols = tk.BooleanVar()
-
         self.password_length = tk.StringVar(value="8")
         self.generated_password = tk.StringVar()
 
@@ -77,6 +74,7 @@ class GenerativePasswordFrame:
         self.show()
 
     def show(self):
+        # Function to display GUI elements for generative password generation
         self.check_lowercase.grid(row=1, column=0, sticky="w", padx=10, pady=5)
         self.check_uppercase.grid(row=2, column=0, sticky="w", padx=10, pady=5)
         self.check_digits.grid(row=3, column=0, sticky="w", padx=10, pady=5)
@@ -85,12 +83,13 @@ class GenerativePasswordFrame:
         self.length_label.grid(row=5, column=0, sticky="w", padx=10, pady=5)
         self.length_combo.grid(row=5, column=1, sticky="w", padx=10, pady=5)
 
-        self.generate_button.grid(row=6, column=0, columnspan=2, pady=10)
+        self.generate_button.grid(row=6, column=0, columnspan=2, pady=10)  # Center-align button
         self.generated_password_label.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
-        self.copy_button.grid(row=8, column=0, columnspan=2, pady=5)
-        self.progress_bar.grid(row=9, column=0, columnspan=2, pady=5)
+        self.copy_button.grid(row=8, column=0, columnspan=2, pady=5)  # Center-align button
+        self.progress_bar.grid(row=9, column=0, columnspan=2, pady=5)  # Center-align progress bar
 
     def hide(self):
+        # Function to hide GUI elements for generative password generation
         self.check_lowercase.grid_forget()
         self.check_uppercase.grid_forget()
         self.check_digits.grid_forget()
@@ -103,6 +102,7 @@ class GenerativePasswordFrame:
         self.progress_bar.grid_forget()
 
     def generate_password(self):
+        # Function to generate password based on user preferences
         if not any([self.include_lowercase.get(), self.include_uppercase.get(), self.include_digits.get(),
                     self.include_symbols.get()]):
             self.generated_password.set("Please select at least 1 option.")
@@ -133,16 +133,18 @@ class GenerativePasswordFrame:
         self.generated_password.set(generated_password)
 
     def copy_password(self):
+        # Function to copy generated password to clipboard and show a message
         self.master.clipboard_clear()
         self.master.clipboard_append(self.generated_password.get())
         self.master.update()
-        tk.messagebox.showinfo("Password Copied", "Password copied to clipboard.")
+        messagebox.showinfo("Password Copied", "Password copied to clipboard.")
 
 
 class CustomizedPasswordFrame:
     def __init__(self, master):
         self.master = master
 
+        # Variables to store user preferences for customized password generation
         self.name_string = tk.StringVar()
         self.favorite_numbers = tk.StringVar()
         self.favorite_colors = tk.StringVar()
@@ -167,6 +169,7 @@ class CustomizedPasswordFrame:
         self.password_label = ttk.Label(master, textvariable=self.generated_password, wraplength=300)
 
     def show(self):
+        # Function to display GUI elements for customized password generation
         self.name_label.grid(row=1, column=0, sticky="w", padx=10, pady=5)
         self.name_entry.grid(row=1, column=1, padx=10, pady=5)
 
@@ -179,11 +182,12 @@ class CustomizedPasswordFrame:
         self.symbols_label.grid(row=4, column=0, sticky="w", padx=10, pady=5)
         self.symbols_entry.grid(row=4, column=1, padx=10, pady=5)
 
-        self.generate_button.grid(row=5, column=0, columnspan=2, pady=10)
+        self.generate_button.grid(row=5, column=0, columnspan=2, pady=10)  # Center-align button
         self.password_label.grid(row=6, column=0, columnspan=2, padx=10, pady=5)
-        self.copy_button.grid(row=7, column=0, columnspan=2, pady=5)
+        self.copy_button.grid(row=7, column=0, columnspan=2, pady=5)  # Center-align button
 
     def hide(self):
+        # Function to hide GUI elements for customized password generation
         self.name_label.grid_forget()
         self.name_entry.grid_forget()
         self.numbers_label.grid_forget()
@@ -197,6 +201,7 @@ class CustomizedPasswordFrame:
         self.copy_button.grid_forget()
 
     def generate_password(self):
+        # Function to generate customized password based on user preferences
         name = self.name_string.get()
         numbers = self.favorite_numbers.get()
         colors = self.favorite_colors.get()
@@ -212,12 +217,11 @@ class CustomizedPasswordFrame:
         self.generated_password.set(generated_password)
 
     def copy_password(self):
+        # Function to copy generated password to clipboard and show a message
         self.master.clipboard_clear()
         self.master.clipboard_append(self.generated_password.get())
         self.master.update()
         messagebox.showinfo("Password Copied", "Password copied to clipboard.")
-
-
 
 
 def main():
