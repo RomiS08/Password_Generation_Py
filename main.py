@@ -226,7 +226,7 @@ class CustomizedPasswordFrame:
 
 def main():
     root = tk.Tk()
-    root.iconbitmap('icon1.ico')  # Set the icon for the Tkinter window
+    root.iconbitmap('app_icon.ico')  # Set the icon for the Tkinter window
     app = PasswordGeneratorApp(root)
     root.mainloop()
 
